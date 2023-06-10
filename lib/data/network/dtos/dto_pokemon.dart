@@ -14,7 +14,7 @@ class DtoPokemon {
   final String next;
 
   @JsonKey(name: 'previous')
-  final String previous;
+  final String? previous;
 
   @JsonKey(name: 'results')
   final List<Results> results;
@@ -22,7 +22,7 @@ class DtoPokemon {
   DtoPokemon({
     required this.count,
     required this.next,
-    required this.previous,
+    this.previous,
     required this.results,
   });
 

@@ -6,9 +6,9 @@ class PokemonApi {
 
   final ApiClient apiClient;
 
-  Future<Response> getPokemon() async {
+  Future<Response> getPokemon(int ofset) async {
     try {
-      final response = await apiClient.get('/pokemon?limit=10&offset=20');
+      final response = await apiClient.get('/pokemon?limit=10&offset=$ofset');
       return response;
     } catch (e) {
       rethrow;

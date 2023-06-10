@@ -5,7 +5,6 @@ import 'package:test_tecnico/ui/home/home_screen.dart';
 
 void main() async {
   const appConfig = AppConfig(
-    enviroment: 'DEVELOPMENT',
     appName: 'Test_tecnico_DEV',
     apiUrl: 'https://pokeapi.co/api/v2',
   );

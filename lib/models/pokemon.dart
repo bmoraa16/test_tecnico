@@ -10,13 +10,13 @@ part 'json_gen/pokemon.g.dart';
 class Pokemon {
   int count;
   String next;
-  String previous;
+  String? previous;
   List<Results> results;
 
   Pokemon({
     required this.count,
     required this.next,
-    required this.previous,
+    this.previous,
     required this.results,
   });
 

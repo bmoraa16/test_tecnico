@@ -9,7 +9,7 @@ part of 'dto_pokemon.dart';
 DtoPokemon _$DtoPokemonFromJson(Map<String, dynamic> json) => DtoPokemon(
       count: json['count'] as int,
       next: json['next'] as String,
-      previous: json['previous'] as String,
+      previous: json['previous'] as String?,
       results: (json['results'] as List<dynamic>)
           .map((e) => Results.fromJson(e as Map<String, dynamic>))
           .toList(),

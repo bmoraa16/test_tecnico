@@ -10,7 +10,7 @@ final losDeLaHeroicaThemeData = {
     useMaterial3: true,
     colorScheme: const ColorScheme.light(
       primary: Color(0xFF7A27E5),
-      primaryContainer: Color(0xFFECDCFF),
+      primaryContainer: Color(0x000A0514),
       onPrimaryContainer: Color(0xFF280057),
       secondary: Color(0xFF684FA3),
       onSecondary: Color(0xFFFFFFFF),

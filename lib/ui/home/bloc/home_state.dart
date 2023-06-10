@@ -1,29 +1,36 @@
 part of 'home_bloc.dart';
 
 abstract class HomeState extends Equatable {
-  const HomeState({
-    this.enviroment,
-  });
-  final String? enviroment;
+  const HomeState();
 
   @override
-  List<Object?> get props => [enviroment];
+  List<Object?> get props => [];
 }
 
-class InitialLoadInitial extends HomeState {}
+class HomeLoadInitial extends HomeState {}
 
-class InitialLoadLoading extends HomeState {
-  const InitialLoadLoading({
-    super.enviroment,
+class HomeLoadLoading extends HomeState {
+  const HomeLoadLoading();
+}
+
+class HomeLoadLoaded extends HomeState {
+  const HomeLoadLoaded();
+}
+
+class HomeLoading extends HomeState {
+  const HomeLoading({required this.message});
+  final String message;
+}
+
+class HomeSuccessState extends HomeState {
+  const HomeSuccessState({
+    required this.pokemonComplete,
   });
+  final List<PokemonDetails> pokemonComplete;
 }
 
-class InitialLoadLoaded extends HomeState {
-  const InitialLoadLoaded();
-}
-
-class InitialLoadError extends HomeState {
-  const InitialLoadError({
+class LoadError extends HomeState {
+  const LoadError({
     required this.error,
   });
   final String error;

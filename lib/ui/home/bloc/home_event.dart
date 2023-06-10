@@ -10,3 +10,7 @@ abstract class HomeEvent extends Equatable {
 class CreateInitialLoad extends HomeEvent {}
 
 class CloseInitialLoad extends HomeEvent {}
+
+class PokemonFetchEvent extends HomeEvent {
+  const PokemonFetchEvent();
+}

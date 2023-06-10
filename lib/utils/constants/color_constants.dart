@@ -23,6 +23,9 @@ class ColorConstants {
   static Color ultramarine = hexToColor('#260B9A');
   static Color onSurface = hexToColor('#EADDFF');
   static Color haiti = hexToColor('#1C1B1F');
+  static Color grayColor = hexToColor('#38304C');
+  static Color blueViolet = hexToColor('#9370DB');
+  static Color burlywood = hexToColor('#A0522D');
 
   ///
   static Color magnolia = hexToColor('#F3EFFB');

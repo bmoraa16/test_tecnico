@@ -9,9 +9,11 @@ class PokemonRepository {
 
   final PokemonApi pokemonApi;
 
-  Future<Pokemon> getPokemon() async {
+  Future<Pokemon> getPokemon({
+    required int ofset,
+  }) async {
     try {
-      final response = await pokemonApi.getPokemon();
+      final response = await pokemonApi.getPokemon(ofset);
       final data = response.data as Map<String, dynamic>;
       final pokemonData = DtoPokemon.fromJson(data);
       // Wrapper in a new model to avoid tight coupling

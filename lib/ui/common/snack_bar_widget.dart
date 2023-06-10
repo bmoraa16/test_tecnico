@@ -218,4 +218,8 @@ class SnackBarWidget {
       ),
     );
   }
+
+  static void hideSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+  }
 }
