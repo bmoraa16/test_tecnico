@@ -171,7 +171,8 @@ VersionGroupDetails _$VersionGroupDetailsFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$VersionGroupDetailsToJson(
-        VersionGroupDetails instance) =>
+  VersionGroupDetails instance,
+) =>
     <String, dynamic>{
       'levelLearnedAt': instance.levelLearnedAt,
       'moveLearnMethod': instance.moveLearnMethod,
@@ -222,7 +223,7 @@ Sprites _$SpritesFromJson(Map<String, dynamic> json) => Sprites(
     );
 
 Map<String, dynamic> _$SpritesToJson(Sprites instance) => <String, dynamic>{
-      'back_default': instance.backDefault,
+      'backDefault': instance.backDefault,
       'backFemale': instance.backFemale,
       'backShiny': instance.backShiny,
       'backShinyFemale': instance.backShinyFemale,
@@ -244,7 +245,8 @@ Other _$OtherFromJson(Map<String, dynamic> json) => Other(
       officialArtwork: json['officialArtwork'] == null
           ? null
           : OfficialArtwork.fromJson(
-              json['officialArtwork'] as Map<String, dynamic>),
+              json['officialArtwork'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$OtherToJson(Other instance) => <String, dynamic>{
@@ -300,7 +302,8 @@ Versions _$VersionsFromJson(Map<String, dynamic> json) => Versions(
       generationIii: json['generationIii'] == null
           ? null
           : GenerationIii.fromJson(
-              json['generationIii'] as Map<String, dynamic>),
+              json['generationIii'] as Map<String, dynamic>,
+            ),
       generationIv: json['generationIv'] == null
           ? null
           : GenerationIv.fromJson(json['generationIv'] as Map<String, dynamic>),
@@ -313,11 +316,13 @@ Versions _$VersionsFromJson(Map<String, dynamic> json) => Versions(
       generationVii: json['generationVii'] == null
           ? null
           : GenerationVii.fromJson(
-              json['generationVii'] as Map<String, dynamic>),
+              json['generationVii'] as Map<String, dynamic>,
+            ),
       generationViii: json['generationViii'] == null
           ? null
           : GenerationViii.fromJson(
-              json['generationViii'] as Map<String, dynamic>),
+              json['generationViii'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$VersionsToJson(Versions instance) => <String, dynamic>{
@@ -429,11 +434,13 @@ GenerationIii _$GenerationIiiFromJson(Map<String, dynamic> json) =>
       fireredLeafgreen: json['fireredLeafgreen'] == null
           ? null
           : FireredLeafgreen.fromJson(
-              json['fireredLeafgreen'] as Map<String, dynamic>),
+              json['fireredLeafgreen'] as Map<String, dynamic>,
+            ),
       rubySapphire: json['rubySapphire'] == null
           ? null
           : FireredLeafgreen.fromJson(
-              json['rubySapphire'] as Map<String, dynamic>),
+              json['rubySapphire'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$GenerationIiiToJson(GenerationIii instance) =>
@@ -466,7 +473,8 @@ GenerationIv _$GenerationIvFromJson(Map<String, dynamic> json) => GenerationIv(
       heartgoldSoulsilver: json['heartgoldSoulsilver'] == null
           ? null
           : DiamondPearl.fromJson(
-              json['heartgoldSoulsilver'] as Map<String, dynamic>),
+              json['heartgoldSoulsilver'] as Map<String, dynamic>,
+            ),
       platinum: json['platinum'] == null
           ? null
           : DiamondPearl.fromJson(json['platinum'] as Map<String, dynamic>),
@@ -544,7 +552,8 @@ GenerationVi _$GenerationViFromJson(Map<String, dynamic> json) => GenerationVi(
       omegarubyAlphasapphire: json['omegarubyAlphasapphire'] == null
           ? null
           : Home.fromJson(
-              json['omegarubyAlphasapphire'] as Map<String, dynamic>),
+              json['omegarubyAlphasapphire'] as Map<String, dynamic>,
+            ),
       xY: json['xY'] == null
           ? null
           : Home.fromJson(json['xY'] as Map<String, dynamic>),

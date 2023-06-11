@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_tecnico/models/pokemon_details.dart';
+import 'package:test_tecnico/models/pokemon_list.dart';
+import 'package:test_tecnico/ui/common/basic_dialog_widget.dart';
 import 'package:test_tecnico/ui/common/snack_bar_widget.dart';
 import 'package:test_tecnico/ui/common/spinner_loading_dialog.dart';
 import 'package:test_tecnico/ui/home/bloc/home_bloc.dart';
 import 'package:test_tecnico/ui/home/widgets/bottom_loader.dart';
+import 'package:test_tecnico/ui/home/widgets/pokemon_item_added.dart';
 import 'package:test_tecnico/ui/home/widgets/pokemon_list_item.dart';
 import 'package:test_tecnico/utils/assets/asset_routes.dart';
 import 'package:test_tecnico/utils/constants/color_constants.dart';
@@ -19,7 +22,11 @@ class BeerBody extends StatefulWidget {
 
 class _BeerBodyState extends State<BeerBody> {
   final List<PokemonDetails> _pokemonsDetails = [];
+  List<PokemonList> _pokemonsList = [];
   final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollControllerLisItemsSelected = ScrollController();
+  List<int> selectedItem = [];
+  GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +55,8 @@ class _BeerBodyState extends State<BeerBody> {
           } else if (state is LoadError) {
             SnackBarWidget.showError(context, state.error, 3);
             BlocProvider.of<HomeBloc>(context).isFetching = false;
+          } else if (state is PokemonAddedState) {
+            _pokemonsList = state.pokemonAdded;
           }
           return;
         },
@@ -87,45 +96,125 @@ class _BeerBodyState extends State<BeerBody> {
                       fontWeight: FontWeight.bold,
                     ),
               ),
-              actions: [
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Image.asset(pokeballIcon),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        _pokemonsDetails.length.toString(),
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorConstants.backgroundDark,
-                              fontWeight: FontWeight.bold,
-                            ),
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(30),
+                child: ColoredBox(
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 18, bottom: 5, top: 5),
+                        child: Image.asset(
+                          desktopIcon,
+                          height: 30,
+                        ),
                       ),
-                    )
-                  ],
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Text(
+                          '''
+Selecciona hasta 5 Pokémons para agregarlos a tu equipo''',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: ColorConstants.backgroundDark,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              actions: [
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (context) {
+                        return BasicDialogWidget(
+                          pokemon: Expanded(
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              controller: _scrollControllerLisItemsSelected,
+                              itemBuilder: (context, index) {
+                                return PokemonItemAdded(
+                                  pokemonComplete: _pokemonsList[index].pokemon,
+                                  removePokemon: () {},
+                                );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 20),
+                              itemCount: _pokemonsList.length,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Image.asset(pokeballIcon),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          _pokemonsDetails.length.toString(),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: ColorConstants.backgroundDark,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
-            body: ListView.separated(
-              controller: _scrollController
-                ..addListener(() {
-                  if (_scrollController.position.pixels ==
-                          _scrollController.position.maxScrollExtent &&
-                      !BlocProvider.of<HomeBloc>(context).isFetching) {
-                    BlocProvider.of<HomeBloc>(context)
-                      ..isFetching = true
-                      ..add(const PokemonFetchEvent());
-                  }
-                }),
-              itemBuilder: (context, index) {
-                return index == _pokemonsDetails.length
-                    ? const BottomLoader()
-                    : PokemonListItem(_pokemonsDetails[index]);
-              },
-              separatorBuilder: (context, index) => const SizedBox(height: 20),
-              itemCount: _pokemonsDetails.length + 1,
+            body: Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: ListView.separated(
+                controller: _scrollController
+                  ..addListener(() {
+                    if (_scrollController.position.pixels ==
+                            _scrollController.position.maxScrollExtent &&
+                        !BlocProvider.of<HomeBloc>(context).isFetching) {
+                      BlocProvider.of<HomeBloc>(context)
+                        ..isFetching = true
+                        ..add(const PokemonFetchEvent());
+                    }
+                  }),
+                itemBuilder: (context, index) {
+                  return index == _pokemonsDetails.length
+                      ? const BottomLoader()
+                      : PokemonListItem(
+                          _pokemonsDetails[index],
+                          () {
+                            final pokemon = PokemonList(
+                              index: index,
+                              pokemon: _pokemonsDetails[index],
+                            );
+                            _pokemonsList.add(pokemon);
+
+                            selectedItem.add(index);
+
+                            BlocProvider.of<HomeBloc>(context).add(
+                              PokemonAdded(pokemonList: _pokemonsList),
+                            );
+                          },
+                          false,
+                        );
+                },
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 20),
+                itemCount: _pokemonsDetails.length + 1,
+              ),
             ),
           );
         },

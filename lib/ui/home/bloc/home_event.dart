@@ -14,3 +14,10 @@ class CloseInitialLoad extends HomeEvent {}
 class PokemonFetchEvent extends HomeEvent {
   const PokemonFetchEvent();
 }
+
+class PokemonAdded extends HomeEvent {
+  const PokemonAdded({
+    required this.pokemonList,
+  });
+  final List<PokemonList> pokemonList;
+}

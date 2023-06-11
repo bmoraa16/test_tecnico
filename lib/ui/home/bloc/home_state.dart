@@ -29,6 +29,13 @@ class HomeSuccessState extends HomeState {
   final List<PokemonDetails> pokemonComplete;
 }
 
+class PokemonAddedState extends HomeState {
+  const PokemonAddedState({
+    required this.pokemonAdded,
+  });
+  final List<PokemonList> pokemonAdded;
+}
+
 class LoadError extends HomeState {
   const LoadError({
     required this.error,

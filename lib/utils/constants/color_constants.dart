@@ -26,6 +26,10 @@ class ColorConstants {
   static Color grayColor = hexToColor('#38304C');
   static Color blueViolet = hexToColor('#9370DB');
   static Color burlywood = hexToColor('#A0522D');
+  static Color redButton = hexToColor('#A50202');
+  static Color lavenderWeb = hexToColor('#EEDBFF');
+  static Color platinum = hexToColor('#E6E1E6');
+  static Color blueButton = hexToColor('#6495ED');
 
   ///
   static Color magnolia = hexToColor('#F3EFFB');
@@ -41,11 +45,10 @@ class ColorConstants {
   static Color onSurface16 = hexToColor('#D5C2FF').withOpacity(.16);
   static Color tertiary = hexToColor('#FFB940');
 
-  static Color lavenderWeb = hexToColor('#EEDBFF');
   static Color mauve = hexToColor('#D6BAFF');
   static Color rajah = hexToColor('#FFB95E');
   static Color indigo = hexToColor('#420089');
-  static Color platinum = hexToColor('#E6E1E6');
+
   static Color peachPuff = hexToColor('#FFDDB7');
   static Color chineseBlack = hexToColor('#120024');
   static Color lavenderGray = hexToColor('#CBC4CF');

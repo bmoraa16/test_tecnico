@@ -10,7 +10,7 @@ final losDeLaHeroicaThemeData = {
     useMaterial3: true,
     colorScheme: const ColorScheme.light(
       primary: Color(0xFF7A27E5),
-      primaryContainer: Color(0x000A0514),
+      primaryContainer: Color(0xFFECDCFF),
       onPrimaryContainer: Color(0xFF280057),
       secondary: Color(0xFF684FA3),
       onSecondary: Color(0xFFFFFFFF),
@@ -49,9 +49,10 @@ final losDeLaHeroicaThemeData = {
       ),
     ),
     dialogTheme: DialogTheme(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 5,
       backgroundColor: const Color(0xFF0A0514),
+      actionsPadding: EdgeInsets.zero,
     ),
     checkboxTheme: CheckboxThemeData(
       checkColor:
@@ -77,14 +78,14 @@ final losDeLaHeroicaThemeData = {
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
           if (states.contains(MaterialState.disabled)) {
-            return ColorConstants.enviado.withOpacity(.12);
+            return ColorConstants.redButton.withOpacity(.12);
           } else {
-            return ColorConstants.enviado;
+            return ColorConstants.redButton;
           }
         }),
         shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
           return RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100),
+            borderRadius: BorderRadius.circular(3),
           );
         }),
         textStyle: MaterialStateProperty.resolveWith(
@@ -114,14 +115,14 @@ final losDeLaHeroicaThemeData = {
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
           if (states.contains(MaterialState.disabled)) {
-            return Colors.transparent.withOpacity(.12);
+            return ColorConstants.blueButton.withOpacity(.12);
           } else {
-            return Colors.transparent;
+            return ColorConstants.blueButton;
           }
         }),
         shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
           return RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100),
+            borderRadius: BorderRadius.circular(3),
           );
         }),
         textStyle:
@@ -129,13 +130,13 @@ final losDeLaHeroicaThemeData = {
           if (states.contains(MaterialState.disabled)) {
             return TextStyle(
               foreground: Paint()
-                ..color = ColorConstants.enviado.withOpacity(.12),
+                ..color = ColorConstants.recibido.withOpacity(.12),
               fontFamily: 'Lexend',
               fontWeight: FontWeight.w400,
             );
           } else {
             return TextStyle(
-              foreground: Paint()..color = ColorConstants.enviado,
+              foreground: Paint()..color = ColorConstants.recibido,
               fontFamily: 'Lexend',
               fontWeight: FontWeight.w400,
             );
@@ -143,7 +144,7 @@ final losDeLaHeroicaThemeData = {
         }),
       ),
     ),
-    scaffoldBackgroundColor: ColorConstants.backgroundDark,
+    scaffoldBackgroundColor: Colors.white,
     textTheme: ThemeData.light().textTheme.copyWith(
           displayLarge: TextStyle(
             fontFamily: 'Lexend',
@@ -228,14 +229,14 @@ final losDeLaHeroicaThemeData = {
       ),
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: ColorConstants.backgroundDark,
+      backgroundColor: ColorConstants.lavenderGray,
       titleTextStyle: TextStyle(
         fontFamily: 'Lexend',
         color: ColorConstants.magnolia,
         fontWeight: FontWeight.w400,
         fontSize: 22,
       ),
-      centerTitle: true,
+      centerTitle: false,
     ),
     bottomAppBarTheme: BottomAppBarTheme(
       color: Color.alphaBlend(

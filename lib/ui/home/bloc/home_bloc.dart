@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_tecnico/data/network/repositories/pokemon/pokemon_repository.dart';
 import 'package:test_tecnico/data/network/repositories/pokemon_details/pokemon_details_repository.dart';
-import 'package:test_tecnico/models/pokemon.dart';
 import 'package:test_tecnico/models/pokemon_details.dart';
+import 'package:test_tecnico/models/pokemon_list.dart';
 import 'package:test_tecnico/services/service_locator.dart';
 
 part 'home_event.dart';
@@ -21,6 +21,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           const HomeLoadLoading(),
         );
 
+        // ignore: unused_local_variable
         final data = await pokemonRepository.getPokemon(ofset: ofset);
         ofset = ofset + 10;
         final listPokemons = <PokemonDetails>[];
@@ -51,6 +52,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       (event, emit) async {
         emit(const HomeLoading(message: 'Cargando Pokemones'));
 
+        // ignore: unused_local_variable
         final data = await pokemonRepository.getPokemon(ofset: ofset);
         lastOfset = ofset;
         ofset = ofset + 10;
@@ -65,6 +67,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(
           HomeSuccessState(
             pokemonComplete: listPokemons,
+          ),
+        );
+      },
+    );
+
+    on<PokemonAdded>(
+      (event, emit) {
+        emit(
+          PokemonAddedState(
+            pokemonAdded: event.pokemonList,
           ),
         );
       },

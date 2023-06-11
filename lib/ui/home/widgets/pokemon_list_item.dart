@@ -7,10 +7,14 @@ import 'package:test_tecnico/utils/strings/string_extension.dart';
 
 class PokemonListItem extends StatelessWidget {
   const PokemonListItem(
-    this.pokemonComplete, {
+    this.pokemonComplete,
+    this.addPokemon,
+    this.isAdded, {
     super.key,
   });
   final PokemonDetails pokemonComplete;
+  final VoidCallback? addPokemon;
+  final bool isAdded;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,7 @@ class PokemonListItem extends StatelessWidget {
           children: [
             Row(
               children: [
+                // ignore: unnecessary_null_comparison
                 if (pokemonComplete.sprites!.frontDefault == null)
                   const BottomLoader()
                 else
@@ -122,12 +127,28 @@ class PokemonListItem extends StatelessWidget {
                               ),
                             ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 )
               ],
-            )
+            ),
+            if (isAdded)
+              const Text('NEL')
+            else
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                  onPressed: addPokemon!.call,
+                  child: Text(
+                    'Agregar a mi equipo'.hardcoded,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: ColorConstants.platinum,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              )
           ],
         ),
       ),

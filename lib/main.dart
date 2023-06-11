@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_tecnico/models/app_config.dart';
 import 'package:test_tecnico/services/service_locator.dart';
 import 'package:test_tecnico/ui/home/home_screen.dart';
+import 'package:test_tecnico/ui/theme/theme.dart';
 
 void main() async {
   const appConfig = AppConfig(
@@ -21,10 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: losDeLaHeroicaThemeData.values.first,
       home: const HomeScreen(),
     );
   }
