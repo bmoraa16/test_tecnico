@@ -24,10 +24,9 @@ class _BeerBodyState extends State<BeerBody> {
   final List<PokemonDetails> _pokemonsDetails = [];
   List<PokemonList> _pokemonsList = [];
   final ScrollController _scrollController = ScrollController();
-  final ScrollController _scrollControllerLisItemsSelected = ScrollController();
   List<int> selectedItem = [];
-  GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -137,18 +136,12 @@ Selecciona hasta 5 Pokémons para agregarlos a tu equipo''',
                       builder: (context) {
                         return BasicDialogWidget(
                           pokemon: Expanded(
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              controller: _scrollControllerLisItemsSelected,
-                              itemBuilder: (context, index) {
-                                return PokemonItemAdded(
-                                  pokemonComplete: _pokemonsList[index].pokemon,
-                                  removePokemon: () {},
-                                );
+                            child: AnimatedList(
+                              key: _listKey,
+                              initialItemCount: _pokemonsList.length,
+                              itemBuilder: (context, index, animation) {
+                                return buildItem(context, animation, index);
                               },
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(height: 20),
-                              itemCount: _pokemonsList.length,
                             ),
                           ),
                         );
@@ -242,5 +235,43 @@ Selecciona hasta 5 Pokémons para agregarlos a tu equipo''',
         ),
       ),
     );
+  }
+
+  Widget buildItem(
+    BuildContext context,
+    Animation<double> animation,
+    int index,
+  ) {
+    return SizeTransition(
+      sizeFactor: animation,
+      child: PokemonItemAdded(
+        pokemonComplete: _pokemonsList[index].pokemon,
+        removePokemon: () {
+          removeItem(index);
+        },
+      ),
+    );
+  }
+
+  void removeItem(int index) {
+    if (_pokemonsList.isEmpty || index < 0 || index >= _pokemonsList.length) {
+      return;
+    }
+
+    if (index == _pokemonsList.length - 1) {
+      _pokemonsList.removeAt(index);
+      _listKey.currentState!.removeItem(
+        index,
+        (context, animation) => Container(),
+        duration: const Duration(milliseconds: 500),
+      );
+    } else {
+      _pokemonsList.removeAt(index);
+      _listKey.currentState!.removeItem(
+        index,
+        (context, animation) => buildItem(context, animation, index),
+        duration: const Duration(milliseconds: 500),
+      );
+    }
   }
 }
