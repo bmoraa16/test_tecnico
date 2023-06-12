@@ -13,14 +13,14 @@ import 'package:test_tecnico/utils/assets/asset_routes.dart';
 import 'package:test_tecnico/utils/constants/color_constants.dart';
 import 'package:test_tecnico/utils/strings/string_extension.dart';
 
-class BeerBody extends StatefulWidget {
-  const BeerBody({super.key});
+class PokemonBody extends StatefulWidget {
+  const PokemonBody({super.key});
 
   @override
-  State<BeerBody> createState() => _BeerBodyState();
+  State<PokemonBody> createState() => _PokemonBodyState();
 }
 
-class _BeerBodyState extends State<BeerBody> {
+class _PokemonBodyState extends State<PokemonBody> {
   final List<PokemonDetails> _pokemonsDetails = [];
   List<PokemonList> _pokemonsList = [];
   final ScrollController _scrollController = ScrollController();
