@@ -6,6 +6,7 @@ part 'json_gen/pokemon_details.g.dart';
 
 @JsonSerializable()
 class PokemonDetails {
+  bool added;
   List<Abilities>? abilities;
   int? baseExperience;
   List<Forms>? forms;
@@ -26,6 +27,7 @@ class PokemonDetails {
   int? weight;
 
   PokemonDetails({
+    required this.added,
     this.abilities,
     this.baseExperience,
     this.forms,

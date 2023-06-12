@@ -24,8 +24,9 @@ class _BeerBodyState extends State<BeerBody> {
   final List<PokemonDetails> _pokemonsDetails = [];
   List<PokemonList> _pokemonsList = [];
   final ScrollController _scrollController = ScrollController();
-  List<int> selectedItem = [];
-
+  bool selectedPokemon = false;
+  bool teamComplete = false;
+  List<int> itemsSelected = [];
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   @override
   Widget build(BuildContext context) {
@@ -157,7 +158,7 @@ Selecciona hasta 5 Pokémons para agregarlos a tu equipo''',
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          _pokemonsDetails.length.toString(),
+                          _pokemonsList.length.toString(),
                           style:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     color: ColorConstants.backgroundDark,
@@ -192,16 +193,22 @@ Selecciona hasta 5 Pokémons para agregarlos a tu equipo''',
                             final pokemon = PokemonList(
                               index: index,
                               pokemon: _pokemonsDetails[index],
+                              selected: true,
                             );
                             _pokemonsList.add(pokemon);
-
-                            selectedItem.add(index);
-
+                            selectedPokemon = pokemon.selected;
+                            itemsSelected.add(index);
+                            _pokemonsDetails[index].added = pokemon.selected;
                             BlocProvider.of<HomeBloc>(context).add(
                               PokemonAdded(pokemonList: _pokemonsList),
                             );
+                            if (_pokemonsList.length == 5) {
+                              teamComplete = true;
+                            }
+                            setState(() {});
                           },
-                          false,
+                          _pokemonsDetails[index].added,
+                          teamComplete,
                         );
                 },
                 separatorBuilder: (context, index) =>
@@ -247,7 +254,21 @@ Selecciona hasta 5 Pokémons para agregarlos a tu equipo''',
       child: PokemonItemAdded(
         pokemonComplete: _pokemonsList[index].pokemon,
         removePokemon: () {
-          removeItem(index);
+          for (var i = 0; i < _pokemonsDetails.length; i++) {
+            for (var j = 0; j < _pokemonsList.length; j++) {
+              if (_pokemonsDetails[i]
+                  .name!
+                  .contains(_pokemonsList[index].pokemon.name!)) {
+                removeItem(index);
+                _pokemonsDetails[i].added = false;
+                if (_pokemonsList.length < 5) {
+                  teamComplete = false;
+                }
+                setState(() {});
+                return;
+              }
+            }
+          }
         },
       ),
     );

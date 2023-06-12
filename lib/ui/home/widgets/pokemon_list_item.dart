@@ -9,12 +9,14 @@ class PokemonListItem extends StatelessWidget {
   const PokemonListItem(
     this.pokemonComplete,
     this.addPokemon,
-    this.isAdded, {
+    this.isAdded,
+    this.isComplete, {
     super.key,
   });
   final PokemonDetails pokemonComplete;
   final VoidCallback? addPokemon;
   final bool isAdded;
+  final bool isComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -133,8 +135,45 @@ class PokemonListItem extends StatelessWidget {
                 )
               ],
             ),
-            if (isAdded)
-              const Text('NEL')
+            if (isComplete)
+              Text(
+                'Equipo completo',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: ColorConstants.redButton,
+                      fontWeight: FontWeight.bold,
+                    ),
+              )
+            else
+              isAdded
+                  ? Text(
+                      'Ya es parte de tu equipo',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: ColorConstants.redButton,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    )
+                  : SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: ElevatedButton(
+                        onPressed: addPokemon!.call,
+                        child: Text(
+                          'Agregar a mi equipo'.hardcoded,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    color: ColorConstants.platinum,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ),
+                    ),
+            /*if (isAdded)
+              Text(
+                'Ya es parte de tu equipo',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: ColorConstants.redButton,
+                      fontWeight: FontWeight.bold,
+                    ),
+              )
             else
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -149,6 +188,7 @@ class PokemonListItem extends StatelessWidget {
                   ),
                 ),
               )
+              */
           ],
         ),
       ),

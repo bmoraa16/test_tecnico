@@ -21,6 +21,7 @@ class PokemonDetailsRepository {
         sprites: pokemonData.sprites,
         types: pokemonData.types,
         name: pokemonData.name,
+        added: false,
       );
       return pokemon;
     } on DioException catch (e) {

@@ -8,6 +8,7 @@ part of '../pokemon_details.dart';
 
 PokemonDetails _$PokemonDetailsFromJson(Map<String, dynamic> json) =>
     PokemonDetails(
+      added: json['added'] as bool,
       abilities: (json['abilities'] as List<dynamic>?)
           ?.map((e) => Abilities.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -50,6 +51,7 @@ PokemonDetails _$PokemonDetailsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PokemonDetailsToJson(PokemonDetails instance) =>
     <String, dynamic>{
+      'added': instance.added,
       'abilities': instance.abilities,
       'baseExperience': instance.baseExperience,
       'forms': instance.forms,

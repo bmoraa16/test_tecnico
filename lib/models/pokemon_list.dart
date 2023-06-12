@@ -11,10 +11,12 @@ part 'pokemon_list.g.dart';
 class PokemonList {
   int index;
   PokemonDetails pokemon;
+  bool selected;
 
   PokemonList({
     required this.index,
     required this.pokemon,
+    required this.selected,
   });
 
   factory PokemonList.fromJson(Map<String, dynamic> json) =>
